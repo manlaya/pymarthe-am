@@ -730,7 +730,7 @@ class MartheField():
 
     def plot(self,  ax=None, layer=0, inest=None, vmin=None,
                     vmax=None, log = False, extent = None,
-                    masked_values = dmv, basemap=False, **kwargs):
+                    masked_values = dmv, basemap=False, rc_font=False, **kwargs):
         """
         Plot data by layer
 
@@ -776,6 +776,8 @@ class MartheField():
                                                              ... ,
                                                              'crs': 'EPSG:2154'}
                                         Default is False.
+        
+        rc_font (bool, optionnal): change rc_font to 'serif', default is False.
 
         **kwargs (optional) : matplotlib.PathCollection arguments.
                               (ex: cmap, lw, ls, edgecolor, ...)
@@ -818,8 +820,9 @@ class MartheField():
         
         # ---- Prepare basic axe if not provided
         if ax is None:
+            if rc_font:
                 plt.rc('font', family='serif', size=10)
-                fig, ax = plt.subplots(figsize=(10,8))
+            fig, ax = plt.subplots(figsize=(10,8))
 
         # ---- Build a collection from rectangles patches and values
         collection = PathCollection(rec['patches'])
